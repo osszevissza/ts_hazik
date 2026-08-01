@@ -2,7 +2,7 @@ import {Entity} from '../interfaces/interfaces'
 import {Adventure} from './adventure'
 
 export class EventDay implements Entity {
-  private adventures: Adventure[] = []
+  private adventures = new Map<string, Adventure>()
   constructor(
     public id: string,
     public name: string,
@@ -11,18 +11,15 @@ export class EventDay implements Entity {
   ){}
 
   addAdventure(adventure: Adventure): void {
-    this.adventures.push(adventure)
+   this.adventures.set(adventure.id, adventure)
   }
 
   removeAdventure(adventureId: string): boolean {
-    const index = this.adventures.findIndex(a => a.id === adventureId)
-    if (index === -1) return false
-    this.adventures.splice(index, 1)
-    return true 
+   return this.adventures.delete(adventureId)
   }
 
   getAdventures(): Adventure[] {
-    return [...this.adventures]
+    return [...this.adventures.values()]
   }
 }
 

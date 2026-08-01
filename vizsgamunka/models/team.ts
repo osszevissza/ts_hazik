@@ -2,7 +2,7 @@ import {Entity} from '../interfaces/interfaces'
 import { Player } from './player'
 
 export class Team implements Entity {
-  private players: Player[] = []
+  private players = new Map<string, Player>()
   constructor(
     public id: string,
     public name: string,
@@ -11,25 +11,22 @@ export class Team implements Entity {
   ) {}
   
   addPlayer(player: Player): void {
-    this.players.push(player)
+    this.players.set(player.id, player)
   }
   
   removePlayer(playerId: string): boolean {
-    const index = this.players.findIndex(p => p.id === playerId)
-    if (index === -1) return false
-    this.players.splice(index, 1)
-    return true
+    return this.players.delete(playerId)
   }
 
   getPlayerById(playerId: string): Player | undefined {
-    return this.players.find(player => player.id === playerId)
+    return this.players.get(playerId)
  }
   
   getSize(): number {
-    return this.players.length
+    return this.players.size
   }
 
   getPlayers(): Player[] {
-    return [...this.players]
+    return [...this.players.values()]
   }
 }
