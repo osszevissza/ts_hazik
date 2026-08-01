@@ -1,5 +1,6 @@
 import {Entity} from '../interfaces/interfaces'
 import {Adventure} from './adventure'
+import {GameSystem} from '../enums/enums'
 
 export class EventDay implements Entity {
   private adventures = new Map<string, Adventure>()
@@ -20,6 +21,10 @@ export class EventDay implements Entity {
 
   getAdventures(): Adventure[] {
     return [...this.adventures.values()]
+  }
+
+  getAdventuresBySystem(system: GameSystem): Adventure[] {
+    return this.getAdventures().filter(adventure => adventure.system === system)
   }
 }
 

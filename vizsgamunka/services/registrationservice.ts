@@ -3,6 +3,8 @@ import {Team} from '../models/team'
 import {Adventure} from '../models/adventure'
 import {Registration} from '../models/registration'
 import {RegistrationStatus} from '../enums/enums'
+import {Log} from '../decorators/logactions'
+
 
 export class RegistrationService{
   constructor(
@@ -12,7 +14,7 @@ export class RegistrationService{
   ){}
 
 // Regisztráció
-
+  @Log
   registerTeam(teamId: string, adventureId: string): Registration {
     const team = this.teamRepo.getById(teamId)
     if (!team) {
@@ -58,7 +60,7 @@ export class RegistrationService{
 
   
 // Visszavonás
-    
+  @Log  
   withdrawRegistration(registrationId: string): void {
     const registration = this.registrationRepo.getById(registrationId)
     if (!registration) {
@@ -92,4 +94,15 @@ export class RegistrationService{
         reg => reg.team.id === teamId && reg.status === RegistrationStatus.Accepted
     )
   }
+
+//Async - bónusz
+
+async registerTeamAsync(
+  teamId: string, adventureId: string): Promise<Registration> {
+    try {
+        await Promise.resolve()
+        return this.registerTeam(teamId, adventureId)}
+    catch (error) {throw error}
+  }
+
 }
