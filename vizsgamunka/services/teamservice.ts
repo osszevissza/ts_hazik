@@ -23,7 +23,9 @@ export class TeamService{
     const team = new Team(id, name, contactName, contactEmail)
     this.teamRepo.add(team)
     return team
-  }
+  };
+
+  
 
   updateTeam(id: string, name?: string, contactName?: string, contactEmail?: string): void {
     const team = this.teamRepo.getById(id)
@@ -42,7 +44,9 @@ export class TeamService{
     if (contactEmail !== undefined) {
         team.contactEmail = contactEmail
     }
-  }
+  };
+
+  
 
   deleteTeam(teamId: string): boolean {
     const team = this.teamRepo.getById(teamId)
@@ -52,7 +56,9 @@ export class TeamService{
     }
 
     return this.teamRepo.delete(teamId)
-  }
+  };
+
+  
 
  addPlayerToTeam(teamId: string, playerId: string): void {
     const team = this.teamRepo.getById(teamId)
@@ -70,7 +76,7 @@ export class TeamService{
     }
 
     team.addPlayer(player)
-  }
+  };
 
 
 
@@ -83,7 +89,7 @@ export class TeamService{
     const player = new Player(id, name, experienceLevel, nickname)
     this.playerRepo.add(player)
     return player
-  }
+  };
 
 
   removePlayerFromTeam(teamId: string, playerId: string): void {
@@ -96,6 +102,6 @@ export class TeamService{
     if (!removed) {
         throw new Error(`A ${playerId} játékos nincs a csapatban.`)
     }
-  }
+  };
 
-}
+};
