@@ -9,6 +9,8 @@ export class TeamService{
     private playerRepo: InMemoryRepository<Player>
   ){}
 
+// Csapat létrehozása
+
   createTeam(id: string, name: string, contactName: string, contactEmail: string): Team {
     const existingById = this.teamRepo.getById(id)
     if (existingById) {
@@ -23,9 +25,10 @@ export class TeamService{
     const team = new Team(id, name, contactName, contactEmail)
     this.teamRepo.add(team)
     return team
-  };
+  }
 
   
+// Csapat módosítása
 
   updateTeam(id: string, name?: string, contactName?: string, contactEmail?: string): void {
     const team = this.teamRepo.getById(id)
@@ -44,9 +47,10 @@ export class TeamService{
     if (contactEmail !== undefined) {
         team.contactEmail = contactEmail
     }
-  };
+  }
 
   
+// Csapat törlése
 
   deleteTeam(teamId: string): boolean {
     const team = this.teamRepo.getById(teamId)
@@ -56,9 +60,10 @@ export class TeamService{
     }
 
     return this.teamRepo.delete(teamId)
-  };
+  }
 
   
+// Játékos hozzáadása
 
  addPlayerToTeam(teamId: string, playerId: string): void {
     const team = this.teamRepo.getById(teamId)
@@ -76,9 +81,10 @@ export class TeamService{
     }
 
     team.addPlayer(player)
-  };
+  }
 
 
+// Játékos létrehozása
 
   createPlayer(id: string, name: string, experienceLevel: ExperienceLevel, nickname?: string): Player {
     const existing = this.playerRepo.getById(id)
@@ -89,8 +95,9 @@ export class TeamService{
     const player = new Player(id, name, experienceLevel, nickname)
     this.playerRepo.add(player)
     return player
-  };
+  }
 
+// Játékos törlése
 
   removePlayerFromTeam(teamId: string, playerId: string): void {
     const team = this.teamRepo.getById(teamId)
@@ -102,6 +109,6 @@ export class TeamService{
     if (!removed) {
         throw new Error(`A ${playerId} játékos nincs a csapatban.`)
     }
-  };
+  }
 
-};
+}

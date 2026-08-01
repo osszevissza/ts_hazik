@@ -11,6 +11,8 @@ export class RegistrationService{
     private adventureRepo: InMemoryRepository<Adventure>
   ){}
 
+// Regisztráció
+
   registerTeam(teamId: string, adventureId: string): Registration {
     const team = this.teamRepo.getById(teamId)
     if (!team) {
@@ -33,7 +35,6 @@ export class RegistrationService{
     if (alreadyRegistered) {
       throw new Error(`A csapat már jelentkezett erre a kalandra.`)
     }
-
     
     const hasOtherRegistration = this.registrationRepo.getAll().some(
       reg => reg.team.id === teamId && reg.status === RegistrationStatus.Accepted
@@ -53,9 +54,10 @@ export class RegistrationService{
 
     this.registrationRepo.add(registration)
     return registration 
-  };
+  }
 
   
+// Visszavonás
     
   withdrawRegistration(registrationId: string): void {
     const registration = this.registrationRepo.getById(registrationId)
@@ -67,20 +69,21 @@ export class RegistrationService{
         throw new Error(`A regisztráció már vissza van vonva.`)
     }
     registration.status = RegistrationStatus.Withdrawn
-  };
+  }
 
     
+// Regisztrációk megtekintése
 
   getRegistrations(): Registration[] {
     return this.registrationRepo.getAll()
-    };
+    }
 
     
 
   getRegistrationsByAdventure(adventureId: string): Registration[] {
     return this.registrationRepo.getAll().filter(
         reg => reg.adventure.id === adventureId && reg.status === RegistrationStatus.Accepted)
-    };
+    }
 
     
 
@@ -88,5 +91,5 @@ export class RegistrationService{
     return this.registrationRepo.getAll().find(
         reg => reg.team.id === teamId && reg.status === RegistrationStatus.Accepted
     )
-  };
-};
+  }
+}
