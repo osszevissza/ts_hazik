@@ -2,9 +2,9 @@
   "name": "vizsgamunka",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "scripts": {
-    "start": "npx tsx index.ts",
+    "start": "npx tsx main.ts",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
